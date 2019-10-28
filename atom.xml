@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://student-party.github.io/</id>
     <title>Gridea</title>
-    <updated>2019-10-28T05:39:34.882Z</updated>
+    <updated>2019-10-28T10:14:11.499Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://student-party.github.io/"/>
     <link rel="self" href="https://student-party.github.io//atom.xml"/>
@@ -10,6 +10,90 @@
     <logo>https://student-party.github.io//images/avatar.png</logo>
     <icon>https://student-party.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[基于docker的主从库搭建]]></title>
+        <id>https://student-party.github.io//post/ji-yu-docker-de-zhu-cong-ku-da-jian</id>
+        <link href="https://student-party.github.io//post/ji-yu-docker-de-zhu-cong-ku-da-jian">
+        </link>
+        <updated>2019-10-28T09:38:35.000Z</updated>
+        <content type="html"><![CDATA[<p>基于Docker的Mysql主从复制搭建</p>
+<ol>
+<li>首先安装docker</li>
+<li>拉取mysql镜像：5.7版本</li>
+<li>启动主从数据库容器</li>
+</ol>
+<pre><code>docker run -p 3339:3306 --name Maste -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7  # Master(主库)
+docker run -p 3340:3306 --name Slave -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7   # Slave(从库)
+</code></pre>
+<p>启动后用可用数据库软件测试一下是否连通。</p>
+<h3 id="配置master">配置Master</h3>
+<ol>
+<li>Master配置文件修改</li>
+</ol>
+<pre><code>docker exec -it 容器名 /bin/bash  #进入主库docker
+apt-get update   #更新安装源
+apt-get install -y vim   #安装vim
+vim  /etc/mysql/my.cnf   #编辑my.cnf配置文件
+
+
+[mysqld]
+## 同一局域网内注意要唯一
+server-id=100  
+## 开启二进制日志功能，可以随便取（关键）
+log-bin=mysql-bin
+</code></pre>
+<ol start="2">
+<li>重启mysql容器。</li>
+<li>进入主库创建数据库同步用户，并授予REPLICATION SLAVE权限和REPLICATION CLIENT权限，用于主从之间同步数据。</li>
+</ol>
+<pre><code>docker exec -it 主库容器名 /bin/bash  # 进入主库docker
+mysql -uroot帐号  -p用户密码   # 登录入mysql
+CREATE USER 'slave'@'%' IDENTIFIED BY '123456';   #创建用户名“slave”，密码“123456”的数据库用户。
+GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'slave'@'%';   #授予用户 slave REPLICATION SLAVE权限和REPLICATION CLIENT权限
+</code></pre>
+<ol start="4">
+<li>查看File、Position字段值,并记录下来</li>
+</ol>
+<pre><code>show master status;
++------------------+----------+--------------+------------------+-------------------+
+| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
++------------------+----------+--------------+------------------+-------------------+
+| mysql-bin.000001 |      617 |              |                  |                   |
++------------------+----------+--------------+------------------+-------------------+
+</code></pre>
+<h3 id="配置slave">配置Slave</h3>
+<ol>
+<li>Slave配置文件修改</li>
+</ol>
+<pre><code>docker exec -it 容器名 /bin/bash  #
+apt-get update
+apt-get install -y vim
+vim  /etc/mysql/my.cnf
+
+[mysqld]
+## 设置server_id,注意要唯一
+server-id=101  
+## 开启二进制日志功能，以备Slave作为其它Slave的Master时使用
+log-bin=mysql-slave-bin   
+## relay_log配置中继日志
+relay_log=edu-mysql-relay-bin
+</code></pre>
+<ol start="2">
+<li>重启mysql服务跟docker容器</li>
+<li>进入Slave数据库，执行主从同步命令；</li>
+</ol>
+<pre><code>change master to master_host='172.17.0.2', master_user='slave', master_password='123456', master_port=3306, master_log_file='mysql-bin.000001', master_log_pos= 617, master_connect_retry=30;  #   master_host='docker独立ip' ；
+master_user='主库创建的同步帐号'；master_password='同步帐号密码'；master_port=mysql主库端口；master_log_file='主库File字段名'；master_log_pos= Position字段；master_connect_retry=重连时间
+
+show slave status \G;   #查看主从同步状态
+start slave  #启动主从同步功能
+</code></pre>
+<blockquote>
+<pre><code>   SlaveIORunning 和 SlaveSQLRunning 都是Yes，说明主从复制已经开启。此时可以测试数据同步是否成功。
+</code></pre>
+</blockquote>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Gridea疑难杂症]]></title>
         <id>https://student-party.github.io//post/gridea-de-yi-nan-za-zheng</id>
