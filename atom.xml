@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://student-party.github.io/</id>
     <title>Gridea</title>
-    <updated>2019-10-31T03:51:24.844Z</updated>
+    <updated>2019-10-31T08:17:39.106Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://student-party.github.io/"/>
     <link rel="self" href="https://student-party.github.io//atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://student-party.github.io//images/avatar.png</logo>
     <icon>https://student-party.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[CMD修改编码]]></title>
+        <id>https://student-party.github.io//post/cmd-xiu-gai-bian-ma</id>
+        <link href="https://student-party.github.io//post/cmd-xiu-gai-bian-ma">
+        </link>
+        <updated>2019-10-31T08:13:21.000Z</updated>
+        <content type="html"><![CDATA[<pre><code>chcp 65001  #修改为UTF-8编码
+</code></pre>
+<p>编码参数可参考:<a href="https://blog.csdn.net/iway_lch/article/details/50408796">点我</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Navicat12.1.8长期试用版]]></title>
         <id>https://student-party.github.io//post/navicat1218-chang-qi-shi-yong-ban</id>
