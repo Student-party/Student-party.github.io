@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://student-party.github.io/</id>
     <title>Gridea</title>
-    <updated>2019-11-01T09:50:29.816Z</updated>
+    <updated>2019-11-01T12:31:58.179Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://student-party.github.io/"/>
     <link rel="self" href="https://student-party.github.io//atom.xml"/>
@@ -216,8 +216,8 @@ docker restart slave
 <li>接下来主从库操作可参考入门步骤3，大同。</li>
 </ol>
 <h2 id="参考连接">参考连接</h2>
-<p><a href="%22https://www.bbsmax.com/A/KE5Qg9DqzL/%22">slave启动失败解决方案一</a><br>
-<a href="%22https://www.cnblogs.com/gczheng/p/10140095.html%22">slave启动失败解决方案二</a>——<code>清理slave同步信息</code></p>
+<p><a href="https://www.bbsmax.com/A/KE5Qg9DqzL/">slave启动失败解决方案一</a></p>
+<p><a href="https://www.cnblogs.com/gczheng/p/10140095.html">slave启动失败解决方案二-清理slave同步信息</a></p>
 ]]></content>
     </entry>
     <entry>
