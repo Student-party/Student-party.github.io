@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CMD修改编码 | Gridea</title>
+<title>Docker报错 | Gridea</title>
 <meta name="description" content="温故而知新" />
 <link rel="shortcut icon" href="https://student-party.github.io//favicon.ico?v=1573549608673">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -79,11 +79,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              CMD修改编码
+              Docker报错
             </h2>
             <div class="post-info">
               <span>
-                2019-10-31
+                2019-11-12
               </span>
               <span>
                 1 min read
@@ -91,17 +91,31 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://cdn.pixabay.com/photo/2016/11/19/22/52/coding-1841550_1280.jpg" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <pre><code>chcp 65001  #修改为UTF-8编码
+                <h2 id="问题">问题</h2>
+<ol>
+<li>创建容器的时候报错WARNING: IPv4 forwarding is disabled. Networking will not work.<br>
+解决办法：</li>
+</ol>
+<pre><code>vim  /usr/lib/sysctl.d/00-system.conf
+# 添加如下代码：
+net.ipv4.ip_forward=1
+#重启network服务
+systemctl restart network
 </code></pre>
-<p>编码参数可参考:<a href="https://blog.csdn.net/iway_lch/article/details/50408796">点我</a></p>
+<p>完成以后，删除错误的容器，再次创建新容器，就不再报错了。</p>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
+</ul>
+</li>
+</ul>
+
               </div>
             </div>
           </article>
@@ -110,9 +124,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://student-party.github.io//post/navicat1218-chang-qi-shi-yong-ban">
+            <a href="https://student-party.github.io//post/xue-xi-xiao-ji-neng-hui-zong">
               <h3 class="post-title">
-                Navicat12.1.8长期试用版
+                学习小技能汇总
               </h3>
             </a>
           </div>

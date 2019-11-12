@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://student-party.github.io/</id>
     <title>Gridea</title>
-    <updated>2019-11-04T02:35:05.785Z</updated>
+    <updated>2019-11-12T09:06:54.422Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://student-party.github.io/"/>
     <link rel="self" href="https://student-party.github.io//atom.xml"/>
@@ -10,6 +10,26 @@
     <logo>https://student-party.github.io//images/avatar.png</logo>
     <icon>https://student-party.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[Docker报错]]></title>
+        <id>https://student-party.github.io//post/docker-bao-cuo</id>
+        <link href="https://student-party.github.io//post/docker-bao-cuo">
+        </link>
+        <updated>2019-11-12T09:04:09.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="问题">问题</h2>
+<ol>
+<li>创建容器的时候报错WARNING: IPv4 forwarding is disabled. Networking will not work.<br>
+解决办法：</li>
+</ol>
+<pre><code>vim  /usr/lib/sysctl.d/00-system.conf
+# 添加如下代码：
+net.ipv4.ip_forward=1
+#重启network服务
+systemctl restart network
+</code></pre>
+<p>完成以后，删除错误的容器，再次创建新容器，就不再报错了。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[学习小技能汇总]]></title>
         <id>https://student-party.github.io//post/xue-xi-xiao-ji-neng-hui-zong</id>
