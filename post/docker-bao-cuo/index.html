@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Docker报错 | Gridea</title>
 <meta name="description" content="温故而知新" />
-<link rel="shortcut icon" href="https://student-party.github.io//favicon.ico?v=1573549852254">
+<link rel="shortcut icon" href="https://student-party.github.io//favicon.ico?v=1574328044563">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://student-party.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://student-party.github.io/">
-  <img class="avatar" src="https://student-party.github.io//images/avatar.png?v=1573549852254" alt="">
+  <img class="avatar" src="https://student-party.github.io//images/avatar.png?v=1574328044563" alt="">
   </a>
   <h1 class="site-title">
     Gridea
@@ -111,6 +111,19 @@ systemctl restart network
 <li>Docker启动的时候加入<code>--privileged</code>参数<br>
 完成以上操作基本解决此问题。</li>
 </ol>
+<h2 id="问题四">问题四</h2>
+<p>Docker批量删除none镜像</p>
+<ol>
+<li>先停止带none的镜像容器<pre><code>docker stop $(docker ps -a | grep &quot;Exited&quot; | awk '{print $1 }')  #停止容器
+</code></pre>
+</li>
+<li>删除容器<pre><code>docker rm $(docker ps -a | grep &quot;Exited&quot; | awk '{print $1 }')  #删除容器 
+</code></pre>
+</li>
+<li>删除镜像<pre><code>docker rmi $(docker images | grep &quot;none&quot; | awk '{print $3}')  #删除镜像
+</code></pre>
+</li>
+</ol>
 
               </div>
               <div class="toc-container">
@@ -119,6 +132,7 @@ systemctl restart network
 <ul>
 <li><a href="#%E9%97%AE%E9%A2%98%E4%B8%80">问题一</a></li>
 <li><a href="#%E9%97%AE%E9%A2%98%E4%BA%8C">问题二</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E5%9B%9B">问题四</a></li>
 </ul>
 </li>
 </ul>
