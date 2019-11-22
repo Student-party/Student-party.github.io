@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://student-party.github.io/</id>
     <title>Gridea</title>
-    <updated>2019-11-21T09:26:42.408Z</updated>
+    <updated>2019-11-22T03:30:53.040Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://student-party.github.io/"/>
     <link rel="self" href="https://student-party.github.io//atom.xml"/>
@@ -10,6 +10,34 @@
     <logo>https://student-party.github.io//images/avatar.png</logo>
     <icon>https://student-party.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[Centos一次创建多个目录]]></title>
+        <id>https://student-party.github.io//post/centos-yi-ci-chuang-jian-duo-ge-mu-lu</id>
+        <link href="https://student-party.github.io//post/centos-yi-ci-chuang-jian-duo-ge-mu-lu">
+        </link>
+        <updated>2019-11-22T03:23:50.000Z</updated>
+        <content type="html"><![CDATA[<p>Linux中创建目录当然使用命令工具mkdir == （make directory）</p>
+<pre><code>mkdir dir1 dir2 dir3
+
+#如果你想在子目录中创建目录，可以这样：
+
+mkdir src src/dir1 src/dir2 src/dir3
+
+#显然上面的方法太笨了
+#我们可以这样：
+
+mkdir src src/{dir1,dir2,dir3}
+
+#最好的方式：这个-p参数是不存在父目录就建立它
+
+mkdir -p dir33/{dir1,dir2,dir3}
+
+#更多mkdir的使用请输入：mkdir --help
+
+#这样就好了，是不是很棒
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Docker报错]]></title>
         <id>https://student-party.github.io//post/docker-bao-cuo</id>

@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Gridea疑难杂症 | Gridea</title>
+<title>Centos一次创建多个目录 | Gridea</title>
 <meta name="description" content="温故而知新" />
 <link rel="shortcut icon" href="https://student-party.github.io//favicon.ico?v=1574393451059">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -79,11 +79,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              Gridea疑难杂症
+              Centos一次创建多个目录
             </h2>
             <div class="post-info">
               <span>
-                2019-10-28
+                2019-11-22
               </span>
               <span>
                 1 min read
@@ -91,23 +91,34 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://student-party.github.io//post-images/gridea-de-yi-nan-za-zheng.png" alt="">
+              <img class="post-feature-image" src="https://cdn.pixabay.com/photo/2012/02/29/12/26/space-19070_1280.jpg" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="windows连接失败">windows连接失败</h2>
-<p><strong>注意：</strong> 安装git，并重启，不然会一直连接失败，无法同步。</p>
+                <p>Linux中创建目录当然使用命令工具mkdir == （make directory）</p>
+<pre><code>mkdir dir1 dir2 dir3
+
+#如果你想在子目录中创建目录，可以这样：
+
+mkdir src src/dir1 src/dir2 src/dir3
+
+#显然上面的方法太笨了
+#我们可以这样：
+
+mkdir src src/{dir1,dir2,dir3}
+
+#最好的方式：这个-p参数是不存在父目录就建立它
+
+mkdir -p dir33/{dir1,dir2,dir3}
+
+#更多mkdir的使用请输入：mkdir --help
+
+#这样就好了，是不是很棒
+</code></pre>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#windows%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5">windows连接失败</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
@@ -116,9 +127,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://student-party.github.io//post/hello-gridea">
+            <a href="https://student-party.github.io//post/docker-bao-cuo">
               <h3 class="post-title">
-                Hello Gridea
+                Docker报错
               </h3>
             </a>
           </div>
