@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Centos一次创建多个目录 | Gridea</title>
+<title>Docker搭建Gitlab社区版本 | Gridea</title>
 <meta name="description" content="温故而知新" />
 <link rel="shortcut icon" href="https://student-party.github.io//favicon.ico?v=1574434170356">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -79,42 +79,73 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              Centos一次创建多个目录
+              Docker搭建Gitlab社区版本
             </h2>
             <div class="post-info">
               <span>
                 2019-11-22
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
             </div>
             
-              <img class="post-feature-image" src="https://cdn.pixabay.com/photo/2012/02/29/12/26/space-19070_1280.jpg" alt="">
+              <img class="post-feature-image" src="http://ww1.sinaimg.cn/large/d7eb80f7ly1g977daaqtbj20p00dwweu.jpg" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>Linux中创建目录当然使用命令工具mkdir == （make directory）</p>
-<pre><code>mkdir dir1 dir2 dir3
-
-#如果你想在子目录中创建目录，可以这样：
-
-mkdir src src/dir1 src/dir2 src/dir3
-
-#显然上面的方法太笨了
-#我们可以这样：
-
-mkdir src src/{dir1,dir2,dir3}
-
-#最好的方式：这个-p参数是不存在父目录就建立它
-
-mkdir -p dir33/{dir1,dir2,dir3}
-
-#更多mkdir的使用请输入：mkdir --help
-
-#这样就好了，是不是很棒
+                <blockquote>
+<p>部署环境：<br>
+Centos7,Docker version 1.13.1,Gitlab社区版</p>
+</blockquote>
+<ol>
+<li>首先安装Docker</li>
+<li>拉取<code>Gitlab</code> Docker镜像</li>
+</ol>
+<pre><code>docker pull gitlab/gitlab-ce:latest  #拉取Gitlab社区版本
 </code></pre>
+<p>GitLab Docker可参考官方文档:<a href="https://docs.gitlab.com/omnibus/docker/">点我</a><br>
+3. 运行Gitlab容器</p>
+<pre><code>docker run -itd   -p 4430:443 -p 11086:11086 -p 2200:22 --name gitlab --restart always --privileged -v /mnt/gitlab/etc:/etc/gitlab -v /mnt/gitlab/log:/var/log/gitlab  -v /mnt/gitlab/data:/var/opt/gitlab   docker.io/gitlab/gitlab-ce
+</code></pre>
+<blockquote>
+<p>注意： <code>--restart always</code> Docker重启时，容器自动启动；443端口跟22端口可随意映射外部端口，<br>
+需有一个端口内外端口一致如上述命令中的11086端口，不然之后网站会访问异常，暂时未找到解决方案。</p>
+</blockquote>
+<ol start="4">
+<li>修改配置文件</li>
+</ol>
+<pre><code>vim /mnt/gitlab/etc/gitlab.rb  #编辑配置文件，配置文件在容器`/etc/gitlab`对应的文件夹中
+# 增加以下命令，可直接将注释稀释掉，然后修改
+ external_url 'http://{localhost}:{port}'  #Gitlab服务器ip或域名+端口
+ gitlab_rails['gitlab_email_enabled'] = true
+ gitlab_rails['gitlab_email_from'] = '13884405320@163.com'
+ gitlab_rails['gitlab_email_reply_to'] = '13884405320@163.com'
+ gitlab_rails['smtp_enable'] = true
+ gitlab_rails['smtp_address'] = &quot;smtp.163.com&quot;
+ gitlab_rails['smtp_port'] = 25   #此端口是smtp服务端口，如其他配置都对，却收不到邮件也
+ 许就是此端口防火墙未放开
+ gitlab_rails['smtp_user_name'] = &quot;13884405320@163.com&quot;
+ gitlab_rails['smtp_password'] = &quot;wangyifuck38.&quot;
+ gitlab_rails['smtp_domain'] = &quot;163.com&quot;
+ gitlab_rails['smtp_authentication'] = &quot;login&quot;
+ gitlab_rails['smtp_enable_starttls_auto'] = true
+ gitlab_rails['smtp_tls'] = fals
+ :wq  #改好后保存退出
+</code></pre>
+<blockquote>
+<p>以上命令详情可参考:<br>
+【1】<a href="https://blog.csdn.net/Lycoridiata/article/details/88869153">网址一</a><br>
+【2】<a href="https://segmentfault.com/a/1190000014305359#articleHeader0">网址二</a></p>
+</blockquote>
+<ol start="5">
+<li>改为配置后需更新一下配置</li>
+</ol>
+<pre><code>docker exec -it gitlab /bin/bash
+gitlab-ctl reconfigure
+</code></pre>
+<p>gitlab命令详情可参考：<a href="https://blog.51cto.com/xiaozhagn/2122026">网址一</a></p>
 
               </div>
               <div class="toc-container">
@@ -127,9 +158,9 @@ mkdir -p dir33/{dir1,dir2,dir3}
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://student-party.github.io//post/docker-bao-cuo">
+            <a href="https://student-party.github.io//post/centos-yi-ci-chuang-jian-duo-ge-mu-lu">
               <h3 class="post-title">
-                Docker报错
+                Centos一次创建多个目录
               </h3>
             </a>
           </div>
