@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://student-party.github.io/</id>
     <title>Gridea</title>
-    <updated>2019-12-06T12:42:15.108Z</updated>
+    <updated>2019-12-16T10:16:33.881Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://student-party.github.io/"/>
     <link rel="self" href="https://student-party.github.io//atom.xml"/>
@@ -229,9 +229,8 @@ mkdir -p dir33/{dir1,dir2,dir3}
         <link href="https://student-party.github.io//post/docker-bao-cuo">
         </link>
         <updated>2019-11-12T09:04:09.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="问题一">问题一</h2>
-<p>创建容器的时候报错WARNING: IPv4 forwarding is disabled. Networking will not work.<br>
-解决办法：</p>
+        <content type="html"><![CDATA[<h2 id="创建容器的时候报错warning-ipv4-forwarding-is-disabled-networking-will-not-work">创建容器的时候报错WARNING: IPv4 forwarding is disabled. Networking will not work.</h2>
+<p>解决办法：</p>
 <pre><code>vim  /usr/lib/sysctl.d/00-system.conf
 # 添加如下代码：
 net.ipv4.ip_forward=1
@@ -239,16 +238,14 @@ net.ipv4.ip_forward=1
 systemctl restart network
 </code></pre>
 <p>完成以后，删除错误的容器，再次创建新容器，就不再报错了。</p>
-<h2 id="问题二">问题二</h2>
-<p>启动docker的时候防火墙已放开端口却还是无法访问，关闭防火墙可以访问。<br>
-解决版本：</p>
+<h2 id="启动docker的时候防火墙已放开端口却还是无法访问关闭防火墙可以访问">启动docker的时候防火墙已放开端口却还是无法访问，关闭防火墙可以访问。</h2>
+<p>解决版本：</p>
 <ol>
 <li>关闭selinux</li>
 <li>Docker启动的时候加入<code>--privileged</code>参数<br>
 完成以上操作基本解决此问题。</li>
 </ol>
-<h2 id="问题四">问题四</h2>
-<p>Docker批量删除none镜像</p>
+<h2 id="docker批量删除none镜像">Docker批量删除none镜像</h2>
 <ol>
 <li>先停止带none的镜像容器<pre><code>docker stop $(docker ps -a | grep &quot;Exited&quot; | awk '{print $1 }')  #停止容器
 </code></pre>
@@ -260,14 +257,40 @@ systemctl restart network
 </code></pre>
 </li>
 </ol>
-<h2 id="问题五">问题五</h2>
-<p>Docker安装无ifconfig,ping命令</p>
+<h2 id="docker安装无ifconfigping命令">Docker安装无ifconfig,ping命令</h2>
 <ol>
 <li>yum安装工具包<pre><code>yum install -y net-tools
 yum install -y 
 </code></pre>
 </li>
 </ol>
+<h2 id="docker容器达到上限">Docker容器达到上限</h2>
+<blockquote>
+<p>问题表现：docker run 起来一会，等下就结束掉了，查看日志以下报错</p>
+</blockquote>
+<pre><code>Initializing database
+2019-12-16T07:45:02.595276Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+2019-12-16T07:45:02.600193Z 0 [Warning] InnoDB: io_setup() failed with EAGAIN. Will make 5 attempts before giving up.
+2019-12-16T07:45:02.600240Z 0 [Warning] InnoDB: io_setup() attempt 1.
+2019-12-16T07:45:03.100477Z 0 [Warning] InnoDB: io_setup() attempt 2.
+2019-12-16T07:45:03.600760Z 0 [Warning] InnoDB: io_setup() attempt 3.
+2019-12-16T07:45:04.101072Z 0 [Warning] InnoDB: io_setup() attempt 4.
+2019-12-16T07:45:04.601372Z 0 [Warning] InnoDB: io_setup() attempt 5.
+2019-12-16T07:45:05.101677Z 0 [ERROR] InnoDB: io_setup() failed with EAGAIN after 5 attempts.
+2019-12-16T07:45:05.101922Z 0 [ERROR] InnoDB: Cannot initialize AIO sub-system
+2019-12-16T07:45:05.102011Z 0 [ERROR] InnoDB: Plugin initialization aborted with error Generic error
+2019-12-16T07:45:05.102083Z 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2019-12-16T07:45:05.102143Z 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2019-12-16T07:45:05.102202Z 0 [ERROR] Failed to initialize builtin plugins.
+2019-12-16T07:45:05.102244Z 0 [ERROR] Aborting
+</code></pre>
+<p>这种问题通过修改某文件值即可，步骤如下：</p>
+<pre><code>cat /proc/sys/fs/aio-max-nr #可以查看到当前的aio-max-nr的值一般为65536（64k个）
+vim /etc/sysctl.conf # 修改或加入以下值
+   fs.aio-max-nr=262144
+sysctl -p #执行命令修改/proc/sys/fs/aio-max-nr
+</code></pre>
+<p><a href="https://blog.csdn.net/tiger199/article/details/102688765">参考链接</a></p>
 ]]></content>
     </entry>
     <entry>
