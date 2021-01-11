@@ -1,0 +1,20 @@
+#!/bin/bash
+#-- - - - - - -Script comment information - - - - - - - - - -
+#Author：                               拉基
+#Email：                        helpdesk81@outlook.com
+#Creation time：                2020-12-21
+#FileName：                     222.sh
+#Blog address：                 https://www.cnblogs.com/98record/
+#Copyright (C)                  2020All rights reserved
+#- - - - - - - - - - - - - end - - - - - - - - - - - - - - - - - -
+#此脚本为显示机器信息
+RED="\033[1;31m"
+GREEN="\033[1;32m"
+END="\033[0m"
+echo -e "$GREEN----------------------系统信息--------------------$END"
+echo -e "主机名:			$RED$(hostname)$END"
+echo -e "ip地址:			$RED$(ifconfig eth0 | head -2 | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -1)$END"
+echo -e "系统版本:		$RED$(cat /etc/redhat-release)$END"
+echo -e "内存:			$RED$(free -h | grep ^M | tr -s " " | cut -d" " -f2)$END"
+echo -e "CPU信息:               $RED$(grep "model name" /proc/cpuinfo | cut -d : -f2  | head -1)$END"
+echo -e "硬盘:			$RED$(lsblk | grep ^sd | tr -s " " | cut -d " " -f4)$END"
